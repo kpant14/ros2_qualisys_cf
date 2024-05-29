@@ -12,17 +12,17 @@ class QualisysCrazyfliePublisher(Node):
         super().__init__('minimal_publisher')
         
         self.cf_body_names = ['cf1','cf2', 'cf3']  # QTM rigid body name
-        self.cf_uris = ['radio://0/80/2M/E7E7E7E740',
-                        'radio://0/80/2M/E7E7E7E731',
-                        'radio://0/80/2M/E7E7E7E711'
+        self.cf_uris = ['radio://0/80/2M/E7E7E7E701',
+                        'radio://0/80/2M/E7E7E7E702',
+                        'radio://1/80/2M/E7E7E7E703'
                         ]  # Crazyflie address
         self.cf_marker_ids = [[11, 12, 13, 14],
                               [21, 22, 23, 24],
                               [31, 32, 33, 34]] # Active marker IDs
         
         # self.cf_body_names = ['cf1','cf2']  # QTM rigid body name
-        # self.cf_uris = ['radio://0/80/2M/E7E7E7E711',
-        #                 'radio://0/80/2M/E7E7E7E731',
+        # self.cf_uris = ['radio://0/80/2M/E7E7E7E701',
+        #                 'radio://1/80/2M/E7E7E7E702',
         #                 ]  # Crazyflie address
         # self.cf_marker_ids = [[11, 12, 13, 14],
         #                       [21, 22, 23, 24]] # Active marker IDs
@@ -39,7 +39,7 @@ class QualisysCrazyfliePublisher(Node):
                 in zip(self.cf_body_names, self.cf_uris, self.cf_marker_ids)]
         self.qcfs = ParallelContexts(*self.qcfs_)
         self.qcfs = self.qcfs.__enter__()
-        self.timer_period = 0.0005  # seconds
+        self.timer_period = 0.05  # seconds
         self.timer = self.create_timer(self.timer_period, self.timer_callback)
         self.dt = 0
 
@@ -51,20 +51,20 @@ class QualisysCrazyfliePublisher(Node):
                 if idx == 0:   
                     target = Pose(0.0,
                                 0.0,
-                                1.0)
+                                0.5)
                     # Engage
                     qcf.safe_position_setpoint(target)
 
                 elif idx == 1:
-                    target = Pose(0.0,
-                                0.75,
-                                1.0)
+                    target = Pose(0.5,
+                                0.5,
+                                0.5)
                     # Engage
                     qcf.safe_position_setpoint(target)
                 elif idx == 2:
-                    target = Pose(0.0,
-                                -0.75,
-                                1.0)
+                    target = Pose(0.5,
+                                -0.5,
+                                0.5)
                     # Engage
                     qcf.safe_position_setpoint(target)
     

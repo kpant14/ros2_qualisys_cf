@@ -40,6 +40,7 @@ setup(
    entry_points={
         'console_scripts': [
                 'qualisys_cf_solo = ros2_qualisys_cf.qualisys_cf_solo:main',
+                'qualisys_cf_multi = ros2_qualisys_cf.qualisys_cf_multi:main',
         ],
     },
 )

@@ -11,14 +11,16 @@ class QualisysCrazyfliePublisher(Node):
     def __init__(self):
         super().__init__('minimal_publisher')
         
-        self.cf_body_names = ['cf1','cf2', 'cf3']  # QTM rigid body name
+        self.cf_body_names = ['cf1','cf2', 'cf3', 'cf4']  # QTM rigid body name
         self.cf_uris = ['radio://0/80/2M/E7E7E7E701',
                         'radio://0/80/2M/E7E7E7E702',
-                        'radio://1/80/2M/E7E7E7E703'
+                        'radio://1/80/2M/E7E7E7E703',
+                        'radio://1/80/2M/E7E7E7E704'
                         ]  # Crazyflie address
         self.cf_marker_ids = [[11, 12, 13, 14],
                               [21, 22, 23, 24],
-                              [31, 32, 33, 34]] # Active marker IDs
+                              [31, 32, 33, 34],
+                              [41, 42, 43, 44]] # Active marker IDs
         
         # self.cf_body_names = ['cf1','cf2']  # QTM rigid body name
         # self.cf_uris = ['radio://0/80/2M/E7E7E7E701',
@@ -49,11 +51,13 @@ class QualisysCrazyfliePublisher(Node):
             #Cycle all drones
             for idx, qcf in enumerate(self.qcfs): 
                 if idx == 0:   
-                    target = Pose(0.0,
+                    target = Pose(0.5,
                                 0.0,
                                 0.5)
                     # Engage
                     qcf.safe_position_setpoint(target)
+                    qcf.set_led_ring(7)
+                    qcf.cf.param.set_value('ring.solidGreen', 200)
 
                 elif idx == 1:
                     target = Pose(0.5,
@@ -61,12 +65,24 @@ class QualisysCrazyfliePublisher(Node):
                                 0.5)
                     # Engage
                     qcf.safe_position_setpoint(target)
+                    qcf.set_led_ring(7)
+                    qcf.cf.param.set_value('ring.solidGreen', 200)
                 elif idx == 2:
                     target = Pose(0.5,
                                 -0.5,
                                 0.5)
                     # Engage
                     qcf.safe_position_setpoint(target)
+                    qcf.set_led_ring(7)
+                    qcf.cf.param.set_value('ring.solidGreen', 200)
+                elif idx == 3:
+                    target = Pose(0.5,
+                                -1.0,
+                                0.5)
+                    # Engage
+                    qcf.safe_position_setpoint(target)    
+                    qcf.set_led_ring(7)
+                    qcf.cf.param.set_value('ring.solidGreen', 200)
     
         else:
             # Land
